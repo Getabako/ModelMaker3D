@@ -24,6 +24,12 @@
   ```bash
   bash engine/make3d.sh character "<正面>" ["<横>" "<後ろ>"] --subject "<説明>"
   ```
+  **形状の既定は cloud(Colab A100 の Hunyuan3D-2)。ローカルTripoSRは最後のフォールバック。**
+  Colabが未起動なら、勝手にローカルで作り始めず、まずユーザーに
+  「`colab/ModelMaker3D_Cloud.ipynb` を **A100 + ハイメモリ + ENABLE_PAINT=True(PAINT_RES=4096)** で実行してURLをください」
+  と依頼する(2026-07-08: ローカルTripoSR製Tポーズ10体の品質が不十分だったための方針転換)。
+  paint付きで返ればローカルベイクは省略され、そのままMixamo用FBXまで出る。
+  `--geo cloud`(Colab必須) / `--geo local`(明示時のみ) / `--endpoint URL` で上書き可。
   立て直し・**顔の正面自動整列**・頂点溶接・スムーズ化・頭頂ビュー生成・背景インペイント・手足補正・正面軸+z を**毎回自動適用**し、
   `model_uv.glb`(確認用)と `for_mixamo.fbx`(Mixamo用)を出力。リグは Mixamo(手動マーカー)。
   - **向き補正は毎回自動**: TripoSRの既定の向き(ヨー)はキャラごとにズレるが、`stand_smooth.py` が
