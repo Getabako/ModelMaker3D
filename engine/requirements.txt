@@ -1,0 +1,17 @@
+# TripoSR ローカル実行用 (Apple Silicon / MPS)。有料APIは一切使わない。
+# torchmcubes はコンパイルが必要で Mac で失敗しやすいため、wheel 配布の PyMCubes に差し替える。
+torch
+torchvision
+numpy
+omegaconf==2.3.0
+Pillow==10.4.0
+einops==0.7.0
+transformers==4.44.2
+trimesh==4.4.9
+rembg
+huggingface-hub
+imageio[ffmpeg]
+onnxruntime
+PyMCubes
+# 注: xatlas / moderngl は TripoSR の --bake-texture / --render 専用。
+# 本ツールはテクスチャを Codex 画像生成 + Blender で行うため不要。

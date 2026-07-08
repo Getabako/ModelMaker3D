@@ -1,0 +1,13 @@
+node_modules
+.next
+.DS_Store
+*.log
+*.tsbuildinfo
+.env
+.env*.local
+
+# 生成物（巨大になるためコミットしない）
+generated/
+
+# TripoSR エンジン本体は npm run setup-engine が clone する
+engine/TripoSR/

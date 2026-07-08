@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/* === ドラクエ風 黒地白文字 ピクセル UI === */
+
+:root { color-scheme: dark; }
+
+html, body { background: #000; color: #fff; }
+
+body {
+  font-family: var(--font-pixel), "Courier New", "MS Gothic", monospace;
+  font-size: 16px;
+  line-height: 2.1;
+  letter-spacing: 0.12em;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+h1, h2, h3 {
+  color: #fff;
+  font-weight: normal;
+  letter-spacing: 0.18em;
+  line-height: 1.8;
+}
+
+/* DQ ウィンドウ枠 */
+.dq-frame {
+  background: #000;
+  color: #fff;
+  border: 4px solid #fff;
+  padding: 32px 36px;
+  margin: 0;
+}
+
+.dq-label {
+  display: block;
+  font-size: 15px;
+  letter-spacing: 0.16em;
+  margin-bottom: 14px;
+  color: #fff;
+}
+
+.dq-frame input,
+.dq-frame select,
+.dq-frame textarea {
+  background: #000 !important;
+  color: #fff !important;
+  border: 3px solid #fff !important;
+  border-radius: 0 !important;
+  padding: 14px 16px !important;
+  font-family: inherit !important;
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+  letter-spacing: 0.1em !important;
+  width: 100%;
+  outline: none;
+}
+
+.dq-frame textarea {
+  line-height: 2 !important;
+  min-height: 110px;
+}
+
+.dq-frame input::placeholder,
+.dq-frame textarea::placeholder { color: #888; }
+
+.dq-frame input[type="file"] {
+  padding: 10px 12px !important;
+  font-size: 13px !important;
+}
+
+.dq-frame input[type="number"] { padding-right: 8px !important; }
+
+.dq-frame input[type="radio"],
+.dq-frame input[type="checkbox"] {
+  width: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  accent-color: #fff;
+  flex: 0 0 auto;
+}
+
+/* タブ */
+.dq-tab {
+  background: #000;
+  color: #fff;
+  border: 3px solid #fff;
+  padding: 12px 18px;
+  font-family: inherit;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.dq-tab.active { background: #fff; color: #000; }
+.dq-tab:hover:not(.active) { background: #222; }
+
+/* ボタン */
+.dq-btn {
+  background: #000;
+  color: #fff;
+  border: 3px solid #fff;
+  padding: 16px 28px;
+  font-family: inherit;
+  font-size: 15px;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+.dq-btn::before { content: "▶"; margin-right: 14px; color: #fff; }
+.dq-btn:hover:not(:disabled) { background: #fff; color: #000; }
+.dq-btn:hover:not(:disabled)::before { color: #000; }
+.dq-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+a { color: #ffe600; text-decoration: underline; }
+a:hover { color: #fff; }
+
+/* ログ */
+.dq-log {
+  background: #000;
+  color: #fff;
+  border: 3px solid #fff;
+  padding: 20px 24px;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.9;
+  letter-spacing: 0.06em;
+  max-height: 320px;
+  overflow: auto;
+}
+.dq-log > div { margin-bottom: 4px; }
+.dq-log .err   { color: #ff6464; }
+.dq-log .done  { color: #6cff6c; }
+.dq-log .agent { color: #ffe600; }
+.dq-log .cmd   { color: #8cd0ff; }
+
+/* 結果 */
+.dq-cell {
+  border: 3px solid #fff;
+  background: #000;
+  padding: 14px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.7;
+  letter-spacing: 0.08em;
+}
+.dq-cell.failed { border-color: #ff6464; color: #ff6464; }
+.dq-cell img {
+  width: 100%;
+  display: block;
+  margin: 10px 0;
+  image-rendering: pixelated;
+  background: #222;
+}
+
+/* 3D ビューア */
+model-viewer {
+  width: 100%;
+  height: 460px;
+  background: #111;
+  border: 3px solid #fff;
+  --poster-color: #111;
+}
+
+.dq-hint {
+  font-size: 12px;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
+  margin-top: 16px;
+}
