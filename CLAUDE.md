@@ -26,7 +26,7 @@
   ```
   **形状の既定は cloud(Colab A100 の Hunyuan3D-2)。ローカルTripoSRは最後のフォールバック。**
   Colabが未起動なら、勝手にローカルで作り始めず、まずユーザーに
-  「`colab/ModelMaker3D_Cloud.ipynb` を **A100 + ハイメモリ + ENABLE_PAINT=True(PAINT_RES=4096)** で実行してURLをください」
+  「`colab/ModelMaker3D_Cloud.ipynb` を開いて **すべてのセルを実行**(A100+ハイメモリ・paint 4096 は設定済み、再起動不要)してURLをください」
   と依頼する(2026-07-08: ローカルTripoSR製Tポーズ10体の品質が不十分だったための方針転換)。
   paint付きで返ればローカルベイクは省略され、そのままMixamo用FBXまで出る。
   `--geo cloud`(Colab必須) / `--geo local`(明示時のみ) / `--endpoint URL` で上書き可。
