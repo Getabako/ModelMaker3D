@@ -35,8 +35,8 @@ mkdir -p "$OUT"
 # shellcheck disable=SC1090
 source "$CONDA_SH"; conda activate "$ENV_NAME"
 
-[[ -z "$ENDPOINT" ]] && ENDPOINT="$(cat "$HOME/.modelmaker3d_cloud" 2>/dev/null | tr -d '[:space:]')"
-[[ -z "$ENDPOINT" ]] && { echo "ERROR: Colab公開URLが必要(~/.modelmaker3d_cloud)" >&2; exit 2; }
+[[ -z "$ENDPOINT" ]] && ENDPOINT="$(bash "$SCRIPT_DIR/resolve_cloud.sh" 2>/dev/null || true)"
+[[ -z "$ENDPOINT" ]] && { echo "ERROR: Colab公開URLが必要(Colabを起動すれば自動検出。または ~/.modelmaker3d_cloud)" >&2; exit 2; }
 
 # 1) 分解
 if [[ "$SKIP_DECOMP" != "1" || ! -f "$OUT/parts.json" ]]; then

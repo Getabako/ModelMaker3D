@@ -13,13 +13,15 @@ import requests
 
 POLL_INTERVAL = 5       # 秒
 POLL_TIMEOUT = 30 * 60  # 秒(A100 paint 4096 でも余裕を持って30分)
+# localtunnel(固定URL)の確認ページをスキップするヘッダ。cloudflareには無害。
+HEADERS = {"Bypass-Tunnel-Reminder": "1"}
 
 
 def gen_async(endpoint, image_path, fields):
     """非同期ジョブAPI。旧サーバー(404)なら None を返す。"""
     with open(image_path, "rb") as f:
         files = {"image": (os.path.basename(image_path), f, "image/png")}
-        r = requests.post(endpoint + "/gen_async", files=files, data=fields, timeout=120)
+        r = requests.post(endpoint + "/gen_async", files=files, data=fields, timeout=120, headers=HEADERS)
     if r.status_code == 404:
         return None
     r.raise_for_status()
@@ -29,13 +31,13 @@ def gen_async(endpoint, image_path, fields):
     while time.time() < deadline:
         time.sleep(POLL_INTERVAL)
         try:
-            s = requests.get(f"{endpoint}/status/{jid}", timeout=30).json()
+            s = requests.get(f"{endpoint}/status/{jid}", timeout=30, headers=HEADERS).json()
         except Exception as e:
             print(f"[cloud] status取得リトライ: {e}")
             continue
         st = s.get("status")
         if st == "done":
-            res = requests.get(f"{endpoint}/result/{jid}", timeout=300)
+            res = requests.get(f"{endpoint}/result/{jid}", timeout=300, headers=HEADERS)
             res.raise_for_status()
             return res.content, dict(res.headers)
         if st == "error":
@@ -49,7 +51,7 @@ def gen_sync(endpoint, image_path, fields):
     """旧サーバー互換の同期API(トンネルが100秒で切れる制約あり)。"""
     with open(image_path, "rb") as f:
         files = {"image": (os.path.basename(image_path), f, "image/png")}
-        r = requests.post(endpoint + "/gen", files=files, data=fields, timeout=1200)
+        r = requests.post(endpoint + "/gen", files=files, data=fields, timeout=1200, headers=HEADERS)
     r.raise_for_status()
     return r.content, dict(r.headers)
 

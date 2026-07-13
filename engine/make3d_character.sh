@@ -60,8 +60,8 @@ fi
 CLOUD_URL=""
 if [[ "$GEO" != "local" ]]; then
   CLOUD_URL="${ENDPOINT:-${MODELMAKER_CLOUD_URL:-}}"
-  [[ -z "$CLOUD_URL" && -f "$HOME/.modelmaker3d_cloud" ]] && CLOUD_URL="$(tr -d '[:space:]' < "$HOME/.modelmaker3d_cloud")"
-  if [[ -n "$CLOUD_URL" ]] && curl -s -m 8 -o /dev/null "$CLOUD_URL/health"; then
+  [[ -z "$CLOUD_URL" ]] && CLOUD_URL="$(bash "$SCRIPT_DIR/resolve_cloud.sh" 2>/dev/null || true)"
+  if [[ -n "$CLOUD_URL" ]] && curl -s -m 8 -H 'Bypass-Tunnel-Reminder: 1' -o /dev/null "$CLOUD_URL/health"; then
     echo "[character] 形状エンジン: cloud(Hunyuan3D-2) $CLOUD_URL"
   else
     if [[ "$GEO" == "cloud" ]]; then

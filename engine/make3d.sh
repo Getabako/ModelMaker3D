@@ -204,9 +204,9 @@ case "$MODE" in
     [[ ${#POSITIONAL[@]} -lt 1 ]] && { echo "ERROR: 画像パスを指定してください" >&2; exit 2; }
     IMG="$(abspath "${POSITIONAL[0]}")"
     [[ -f "$IMG" ]] || { echo "ERROR: 画像が見つかりません: $IMG" >&2; exit 1; }
-    # エンドポイント解決: --endpoint > 環境変数 > ~/.modelmaker3d_cloud
+    # エンドポイント解決: --endpoint > 環境変数 > 自動検出(保存URL/固定localtunnel)
     [[ -z "$ENDPOINT" ]] && ENDPOINT="${MODELMAKER_CLOUD_URL:-}"
-    [[ -z "$ENDPOINT" && -f "$HOME/.modelmaker3d_cloud" ]] && ENDPOINT="$(tr -d '[:space:]' < "$HOME/.modelmaker3d_cloud")"
+    [[ -z "$ENDPOINT" ]] && ENDPOINT="$(bash "$SCRIPT_DIR/resolve_cloud.sh" 2>/dev/null || true)"
     [[ -z "$ENDPOINT" ]] && { echo "ERROR: Colab の公開URLを指定してください(--endpoint、または ~/.modelmaker3d_cloud に保存)" >&2; exit 2; }
     echo "[make3d] cloud モード: $IMG -> $ENDPOINT"
     cp "$IMG" "$OUT/input_0.png" 2>/dev/null || true
